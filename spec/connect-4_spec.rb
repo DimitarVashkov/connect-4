@@ -75,5 +75,53 @@ describe ConnectFour do
     end
   end
 
+  describe '.horizontal_win?' do
+    context 'At the start of the game' do
+      it 'returns false as nobody has put pieces' do
+        expect(newgame.horizontal_win?).to eql false
+      end
+    end
 
+    context 'If we have a horizontal 4' do
+      it 'return true' do
+        newgame.place_piece(0)
+        newgame.place_piece(0)
+        newgame.place_piece(1)
+        newgame.place_piece(0)
+        newgame.place_piece(2)
+        newgame.place_piece(1)
+        newgame.place_piece(3)
+        expect(newgame.horizontal_win?).to eql true
+      end
+    end
+  end
+
+  describe '.vertical_win?' do
+    context 'At the start of the game' do
+      it 'returns false as nobody has put pieces' do
+        expect(newgame.vertical_win?).to eql false
+      end
+    end
+
+    context 'If we have a vertical 4' do
+      it 'return true' do
+        newgame.place_piece(0)
+        newgame.place_piece(1)
+        newgame.place_piece(0)
+        newgame.place_piece(2)
+        newgame.place_piece(0)
+        newgame.place_piece(1)
+        newgame.place_piece(0)
+        expect(newgame.vertical_win?).to eql true
+      end
+    end
+  end
+
+  describe '.draw?' do
+    context 'all turns have been played and nobody has won' do
+      it 'returns true' do
+        # this one is difficult to test
+      end
+    end
+  end
 end

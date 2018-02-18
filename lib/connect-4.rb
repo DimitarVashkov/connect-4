@@ -42,6 +42,7 @@ class ConnectFour
         end
       end
     end
+
     switch_turn
   end
 
@@ -61,4 +62,62 @@ class ConnectFour
                   true
                 end
   end
+
+  def horizontal_win?
+    symbol = !@player_1 ? @black : @white
+    result = 0
+    @positions.each do |row|
+      row.each do |cell|
+        if cell == symbol
+          result += 1
+          return true if result == 4
+        else
+          result = 0
+        end
+      end
+    end
+    false
+  end
+
+  def vertical_win?
+    symbol = !@player_1 ? @black : @white
+    result = 0
+    (0..6).each do |col|
+      (0..5).each do |row|
+        if @positions[row][col] == symbol
+          result += 1
+          return true if result == 4
+        else
+          result = 0
+        end
+      end
+    end
+    false
+  end
+
+  def draw?
+    if @turn > 42
+      puts 'The game ends in a draw!'
+      exit
+    end
+  end
+
+  def play
+    display_board
+    while !horizontal_win? && !vertical_win?
+      puts 'Choose a position! (1-7)'
+      choice = gets.strip
+      choice = input_to_pos(choice)
+      place_piece(choice)
+      display_board
+      draw?
+    end
+    symbol = !@player_1 ? @black : @white
+    puts "Player #{symbol} won!"
+
+  end
+
 end
+
+# new_game = ConnectFour.new
+# new_game.play
